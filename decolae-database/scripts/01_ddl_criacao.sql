@@ -124,7 +124,7 @@ create table CARTAO_EMBARQUE(
 create table ESCALA_TECNICA(
 	CPFTripulanteTecnico VARCHAR(11),
 	NumVoo VARCHAR(20),
-	FuncaoVoo VARCHAR(50) not null,check,
+	FuncaoVoo VARCHAR(50) not null,
 	PRIMARY KEY (CPFTripulanteTecnico, NumVoo),
     FOREIGN KEY (CPFTripulanteTecnico) REFERENCES TRIPULANTE_TECNICO(CPF),
     FOREIGN KEY (NumVoo) REFERENCES VOO(NumVoo)
