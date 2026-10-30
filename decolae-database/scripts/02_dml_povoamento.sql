@@ -57,7 +57,7 @@ INSERT INTO VOO (NumVoo, DataVoo, Status, HorarioPrevistoPartida, HorarioPrevist
 
 --# 7 - POVOAMENTO: ESCALAS DA TRIPULAÇÃO NO VOO
 INSERT INTO ESCALA_TECNICA (CPFTripulanteTecnico, NumVoo, FuncaoVoo) VALUES 
-('55555555555', 'VOO-1001', 'Piloto Comercial (Comandante)'),
+('55555555555', 'VOO-1001', 'Piloto'),
 ('66666666666', 'VOO-1001', 'Copiloto');
 
 INSERT INTO ESCALA_COMISSARIO (CPFComissario, NumVoo) VALUES 
