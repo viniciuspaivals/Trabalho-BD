@@ -1,13 +1,13 @@
---#1 - POVOAMENTO: USUÁRIOS BASE (TODOS ÀQUELES QUE INTERAGEM COM O SISTEMA)
+--#1 - POVOAMENTO: USUÁRIOS BASE (TODOS AQUELES QUE INTERAGEM COM O SISTEMA)
 INSERT INTO USUARIO (CPF, Nome, "E-mail", Telefone, DataDeNascimento) VALUES 
-('11111111111', 'João Silva', 'joao.cliente@email.com', '+351910000001', '1985-10-15'),
-('22222222222', 'Maria Santos', 'maria.cliente@email.com', '+351910000002', '1990-05-20'),
-('33333333333', 'Carlos Gerente', 'carlos.ger@decolae.com', '+351910000003', '1978-03-12'),
-('44444444444', 'Ana Admin', 'ana.adm@decolae.com', '+351910000004', '1982-11-08'),
-('55555555555', 'Pedro Piloto', 'pedro.tec@decolae.com', '+351910000005', '1975-07-22'),
-('66666666666', 'Paulo Copiloto', 'paulo.tec@decolae.com', '+351910000006', '1988-01-30'),
-('77777777777', 'Sara Comissaria', 'sara.com@decolae.com', '+351910000007', '1992-09-14'),
-('88888888888', 'Marta Comissaria', 'marta.com@decolae.com', '+351910000008', '1995-12-05');
+('11111111111', 'João Silva', 'joao.cliente@email.com', '+5531990000001', '1985-10-15'),
+('22222222222', 'Maria Santos', 'maria.cliente@email.com', '+5531990000002', '1990-05-20'),
+('33333333333', 'Carlos Gerente', 'carlos.ger@decolae.com', '+5531990000003', '1978-03-12'),
+('44444444444', 'Ana Admin', 'ana.adm@decolae.com', '+5531990000004', '1982-11-08'),
+('55555555555', 'Pedro Piloto', 'pedro.tec@decolae.com', '+5531990000005', '1975-07-22'),
+('66666666666', 'Paulo Copiloto', 'paulo.tec@decolae.com', '+5531990000006', '1988-01-30'),
+('77777777777', 'Sara Comissaria', 'sara.com@decolae.com', '+5531990000007', '1992-09-14'),
+('88888888888', 'Marta Comissaria', 'marta.com@decolae.com', '+5531990000008', '1995-12-05');
 
 
 --#2 - POVOAMENTO: SUBCLASSES DE USUÁRIO (CLIENTES E FUNCIONÁRIOS)
@@ -49,11 +49,11 @@ INSERT INTO AERONAVE (ID_Aeronave, Modelo, NumAssentos, CPF_Gerente) VALUES
 ('PR-XYZ', 'Boeing 737-800', 180, '33333333333');
 
 INSERT INTO TRAJETO (NumTrajeto, AeroportoOrigem, AeroportoDestino, Origem, Destino, CPF_Gerente) VALUES 
-('TRJ-LIS-GRU', 'Aeroporto Humberto Delgado (LIS)', 'Aeroporto de Guarulhos (GRU)', 'Lisboa, Portugal', 'São Paulo, Brasil', '33333333333');
+('TRJ-CNF-GRU', 'Aeroporto Internacional de Confins (CNF)', 'Aeroporto Internacional de Guarulhos (GRU)', 'Belo Horizonte, MG', 'São Paulo, SP', '33333333333');
 
 --# 6 - POVOAMENTO: VOO (CRIADO PELO ADM)
 INSERT INTO VOO (NumVoo, DataVoo, Status, HorarioPrevistoPartida, HorarioPrevistoChegada, ValorBase, CPFAdministrador, NumAeronave, NumTrajeto) VALUES 
-('VOO-1001', '2026-11-15', 'Programado', '2026-11-15 10:00:00', '2026-11-15 20:00:00', 3500.00, '44444444444', 'PR-XYZ', 'TRJ-LIS-GRU');
+('VOO-1001', '2026-11-15', 'Programado', '2026-11-15 10:00:00', '2026-11-15 11:20:00', 450.00, '44444444444', 'PR-XYZ', 'TRJ-CNF-GRU');
 
 --# 7 - POVOAMENTO: ESCALAS DA TRIPULAÇÃO NO VOO
 INSERT INTO ESCALA_TECNICA (CPFTripulanteTecnico, NumVoo, FuncaoVoo) VALUES 
@@ -64,17 +64,17 @@ INSERT INTO ESCALA_COMISSARIO (CPFComissario, NumVoo) VALUES
 ('77777777777', 'VOO-1001'),
 ('88888888888', 'VOO-1001');
 
---# 8 - POVOAMENTO: OPERAÇÕES COMERCIAIS (Compra, Tipo, Passagem, Check-in)
+--# 8 - POVOAMENTO: OPERAÇÕES COMERCIAIS (Compra, Tipo, Passagem, Cartão de embarque)
 INSERT INTO COMPRA (CodigoReserva, StatusCompra, FormaPagamento, CPFCliente) VALUES 
 ('RES-A1B2C3', 'Confirmada', 'Cartão de Crédito', '11111111111');
 
 INSERT INTO TIPO_PASSAGEM (NomeTipo, Multiplicador) VALUES 
-('Económica', 1.00),
+('Econômica', 1.00),
 ('Executiva', 2.50);
 
 INSERT INTO PASSAGEM (NumPassagem, ValorPago, StatusPassagem, CodigoReserva, NomeTipo) VALUES 
-('PAS-999123', 3500.00, 'Emitida', 'RES-A1B2C3', 'Económica');
+('PAS-999123', 450.00, 'Emitida', 'RES-A1B2C3', 'Econômica');
 
---QUANDO O CLIENTE FAZ CHECK-IN, É GERADO O CARTÃO DE EMBARQUE VINCULADO AO VOO
+--O CARTÃO DE EMBARQUE É VINCULADO À PASSAGEM E AO VOO
 INSERT INTO CARTAO_EMBARQUE (NumPassagem, NumEmbarque, NumeroAssento, StatusEmbarque, NumVoo) VALUES 
 ('PAS-999123', 'EMB-001', '12A', 'Emitido', 'VOO-1001');
