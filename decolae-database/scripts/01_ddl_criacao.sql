@@ -4,7 +4,7 @@ create table USUARIO (
 	Nome VARCHAR(100) not null,
 	"E-mail" VARCHAR(100) unique not null,
 	Telefone VARCHAR(20),
-	DataDeNascimento date 
+	DataDeNascimento date not null,
 );
 
 --SUBCLASSES DE 'USUARIO'
