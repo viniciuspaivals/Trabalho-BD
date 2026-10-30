@@ -103,6 +103,7 @@ CREATE TABLE VOO (
     CPFAdministrador VARCHAR(11) not null,
     NumAeronave VARCHAR(20) not null,
     NumTrajeto VARCHAR(20) not null,
+	CHECK (HorarioPrevistoChegada > HorarioPrevistoPartida),
     FOREIGN KEY (CPFAdministrador) REFERENCES ADMINISTRADOR(CPF),
     FOREIGN KEY (NumAeronave) REFERENCES AERONAVE(ID_Aeronave),
     FOREIGN KEY (NumTrajeto) REFERENCES TRAJETO(NumTrajeto)
@@ -115,6 +116,7 @@ create table CARTAO_EMBARQUE(
     NumeroAssento VARCHAR(10),
     StatusEmbarque VARCHAR(50),
     NumVoo VARCHAR(20) NOT NULL,
+	UNIQUE (NumVoo, NumeroAssento),
     PRIMARY KEY (NumPassagem, NumEmbarque),
     FOREIGN KEY (NumPassagem) REFERENCES PASSAGEM(NumPassagem) ON DELETE CASCADE,
     FOREIGN KEY (NumVoo) REFERENCES VOO(NumVoo)
@@ -126,6 +128,7 @@ create table ESCALA_TECNICA(
 	NumVoo VARCHAR(20),
 	FuncaoVoo VARCHAR(50) not null,
 	PRIMARY KEY (CPFTripulanteTecnico, NumVoo),
+	CHECK (FuncaoVoo IN ('Piloto', 'Copiloto')),	
     FOREIGN KEY (CPFTripulanteTecnico) REFERENCES TRIPULANTE_TECNICO(CPF),
     FOREIGN KEY (NumVoo) REFERENCES VOO(NumVoo)
 );
