@@ -110,7 +110,7 @@ def atualizar_status_voo(num_voo : str, payload: StatusVooUpdate):
             "UPDATE VOO SET Status = %s WHERE NumVoo = %s RETURNING NumVoo, Status",
             (payload.status, num_voo),
         )
-        atualizado - cur.fetchone()
+        atualizado = cur.fetchone()
         if not atualizado:
             raise HTTPException(status_code=404, detail="Voo não encontrado.")
     return atualizado    
