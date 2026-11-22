@@ -34,6 +34,26 @@ class TripulanteCreate(BaseModel):
     tipo: Literal["tecnico", "comissario"]
     codigo_anac: Optional[str] = None  # Obrigatório se tipo == 'tecnico'
 
+class AeronaveUpdate(BaseModel):
+    modelo: str
+    num_assentos: int
+
+
+class TrajetoUpdate(BaseModel):
+    origem: str
+    destino: str
+    aeroporto_origem: str
+    aeroporto_destino: str
+
+
+class TripulanteUpdate(BaseModel):
+    nome: str
+    email: EmailStr
+    telefone: Optional[str] = None
+    data_de_nascimento: date
+    num_credencial: str
+    codigo_anac: Optional[str] = None  # Usado apenas se for Tripulante Técnico
+
 
 #AERONAVES
 @router.get("/aeronaves")
@@ -64,6 +84,24 @@ def remover_aeronave(id_aeronave: str):
         if not cur.fetchone():
             raise HTTPException(status_code=404, detail="Aeronave não encontrada.")
     return {"message": f"Aeronave {id_aeronave} removida."}
+
+@router.put("/aeronaves/{id_aeronave}")
+def atualizar_aeronave(id_aeronave: str, payload: AeronaveUpdate):
+    with get_db() as cur:
+        cur.execute(
+            """
+            UPDATE AERONAVE
+               SET Modelo = %s,
+                   NumAssentos = %s
+             WHERE ID_Aeronave = %s
+         RETURNING *
+            """,
+            (payload.modelo, payload.num_assentos, id_aeronave),
+        )
+        atualizada = cur.fetchone()
+        if not atualizada:
+            raise HTTPException(status_code=404, detail="Aeronave não encontrada.")
+    return atualizada
 
 
 #TRAJETOS
@@ -103,6 +141,31 @@ def remover_trajeto(num_trajeto: str):
             raise HTTPException(status_code=404, detail="Trajeto não encontrado.")
     return {"message": f"Trajeto {num_trajeto} removido."}
 
+@router.put("/trajetos/{num_trajeto}")
+def atualizar_trajeto(num_trajeto: str, payload: TrajetoUpdate):
+    with get_db() as cur:
+        cur.execute(
+            """
+            UPDATE TRAJETO
+               SET Origem = %s,
+                   Destino = %s,
+                   AeroportoOrigem = %s,
+                   AeroportoDestino = %s
+             WHERE NumTrajeto = %s
+         RETURNING *
+            """,
+            (
+                payload.origem,
+                payload.destino,
+                payload.aeroporto_origem,
+                payload.aeroporto_destino,
+                num_trajeto,
+            ),
+        )
+        atualizado = cur.fetchone()
+        if not atualizado:
+            raise HTTPException(status_code=404, detail="Trajeto não encontrado.")
+    return atualizado
 
 #TRIPULAÇÃO
 @router.get("/tripulantes")
@@ -170,8 +233,50 @@ def criar_tripulante(payload: TripulanteCreate):
 @router.delete("/tripulantes/{cpf}")
 def remover_tripulante(cpf: str):
     with get_db() as cur:
-        # ON DELETE CASCADE remove das subclasses automaticamente
+        #ON DELETE CASCADE REMOVE DAS SUBCLASSES AUTOMATICAMENTE
         cur.execute("DELETE FROM USUARIO WHERE CPF = %s RETURNING CPF", (cpf,))
         if not cur.fetchone():
             raise HTTPException(status_code=404, detail="Tripulante não encontrado.")
     return {"message": f"Tripulante {cpf} removido."}
+
+@router.put("/tripulantes/{cpf}")
+def atualizar_tripulante(cpf: str, payload: TripulanteUpdate):
+    with get_db() as cur:
+        #GARANTE QUE O CPF INFORMADO REALMENTE PERTENCE A UM TRIPULANTE
+        cur.execute("SELECT CPF FROM TRIPULANTE WHERE CPF = %s", (cpf,))
+        if not cur.fetchone():
+            raise HTTPException(status_code=404, detail="Tripulante não encontrado.")
+
+        cur.execute(
+            """
+            UPDATE USUARIO
+               SET Nome = %s,
+                   "E-mail" = %s,
+                   Telefone = %s,
+                   DataDeNascimento = %s
+             WHERE CPF = %s
+            """,
+            (payload.nome, payload.email, payload.telefone, payload.data_de_nascimento, cpf),
+        )
+
+        cur.execute(
+            """
+            UPDATE FUNCIONARIO
+               SET NumCredencial = %s
+             WHERE CPF = %s
+            """,
+            (payload.num_credencial, cpf),
+        )
+
+        #SE FOR TRIPULANTE TECNICO E ENVIOU CodigoANAC, ATUALIZA TAMBEM
+        if payload.codigo_anac is not None:
+            cur.execute(
+                """
+                UPDATE TRIPULANTE_TECNICO
+                   SET CodigoANAC = %s
+                 WHERE CPF = %s
+                """,
+                (payload.codigo_anac, cpf),
+            )
+
+    return {"message": f"Tripulante {cpf} atualizado com sucesso."}

@@ -18,7 +18,7 @@ class CadastroClienteRequest(BaseModel):
 
 @router.post("/login")
 def login(payload: LoginRequest):
-    ident = payload.identificaador.strip()
+    ident = payload.identificador.strip()
     query = """
         SELECT
             u.CPF,
@@ -48,7 +48,7 @@ def login(payload: LoginRequest):
 
     papeis = []
     if user["is_gerente"]: papeis.append("gerente")
-    if user["is_administrator"]: papeis.append("administrador")
+    if user["is_administrador"]: papeis.append("administrador")
     if user ["is_tripulante"]: papeis.append("tripulante")
     if user["is_cliente"]: papeis.append("cliente")
 

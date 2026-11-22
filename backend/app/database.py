@@ -2,7 +2,7 @@ import os
 from contextlib import contextmanager
 import psycopg2
 from psycopg2 import errors
-from psycopg2.extras import RealDictConnection
+from psycopg2.extras import RealDictCursor
 from fastapi import HTTPException
 from dotenv import load_dotenv
 
