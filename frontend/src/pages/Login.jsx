@@ -53,7 +53,7 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-10 bg-gradient-to-br from-slate-900 via-slate-800 to-sky-900">
+    <div className="min-h-screen flex items-center justify-center px-4 py-10 bg-blue-900">
       <div className="w-full max-w-md space-y-4">
         <div className="text-center text-white space-y-2">
           <img src="/aviao.svg" alt="" className="w-14 h-14 mx-auto" />
@@ -61,7 +61,7 @@ export default function Login() {
           <p className="text-sky-200 text-sm">Sistema de gestão de voos e passagens</p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-xl p-6 space-y-4">
+        <div className="bg-white rounded-xl shadow-md p-6 space-y-4">
           {escolha ? (
             <div className="space-y-3">
               <p className="text-sm">Olá, <strong>{escolha.dados.nome}</strong>. Entrar como:</p>
@@ -90,13 +90,13 @@ export default function Login() {
                   onChange={(e) => setIdentificador(e.target.value)}
                   placeholder="Ex.: 11111111111"
                   autoFocus
-                  className="mt-1 w-full px-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                  className="mt-1 w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500"
                 />
               </label>
               <Mensagem texto={erro} />
               <button
                 disabled={carregando}
-                className="w-full py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 disabled:opacity-60 text-white font-bold"
+                className="w-full py-2.5 rounded-lg bg-sky-600 hover:bg-sky-700 disabled:opacity-60 text-white font-bold"
               >
                 {carregando ? 'Entrando...' : 'Entrar'}
               </button>
