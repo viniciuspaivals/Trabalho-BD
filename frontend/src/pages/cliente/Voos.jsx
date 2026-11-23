@@ -54,14 +54,14 @@ export default function Voos() {
           e.preventDefault()
           buscar()
         }}
-        className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 grid gap-3 sm:grid-cols-4 items-end"
+        className="bg-white border border-slate-200 p-4 grid gap-3 sm:grid-cols-4 items-end"
       >
         <Campo rotulo="Origem" valor={filtros.origem} aoMudar={(v) => alterarFiltro('origem', v)} placeholder="Ex.: Belo Horizonte" />
         <Campo rotulo="Destino" valor={filtros.destino} aoMudar={(v) => alterarFiltro('destino', v)} placeholder="Ex.: São Paulo" />
         <Campo rotulo="Data" tipo="date" valor={filtros.data_voo} aoMudar={(v) => alterarFiltro('data_voo', v)} />
         <div className="flex gap-2">
-          <button className="flex-1 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold">Buscar</button>
-          <button type="button" onClick={limpar} className="px-3 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium">
+          <button className="flex-1 py-2.5 bg-blue-800 hover:bg-blue-900 text-white font-bold">Buscar</button>
+          <button type="button" onClick={limpar} className="px-3 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium">
             Limpar
           </button>
         </div>
@@ -95,7 +95,7 @@ function Campo({ rotulo, valor, aoMudar, tipo = 'text', placeholder }) {
         value={valor}
         onChange={(e) => aoMudar(e.target.value)}
         placeholder={placeholder}
-        className="mt-1 w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500"
+        className="mt-1 w-full px-3 py-2 border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-700"
       />
     </label>
   )
@@ -104,21 +104,21 @@ function Campo({ rotulo, valor, aoMudar, tipo = 'text', placeholder }) {
 function CartaoVoo({ voo, aoEscolher }) {
   const poucosLugares = voo.assentosdisponiveis <= 5
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex flex-col md:flex-row md:items-center gap-5">
+    <div className="bg-white border border-slate-200 p-5 flex flex-col md:flex-row md:items-center gap-5">
       <div className="flex-1 space-y-3">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="bg-sky-600 text-white text-xs font-mono font-bold px-2.5 py-1 rounded-md">{voo.numvoo}</span>
+          <span className="bg-blue-800 text-white text-xs font-mono font-bold px-2.5 py-1">{voo.numvoo}</span>
           <span className="text-sm text-slate-500">
             {formatar.data(voo.horarioprevistopartida)} · {voo.modeloaeronave} ({voo.numaeronave})
           </span>
           {voo.status !== 'Programado' && (
-            <span className="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-0.5 rounded-full">{voo.status}</span>
+            <span className="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-0.5">{voo.status}</span>
           )}
         </div>
 
         <div className="flex items-center gap-4">
           <div>
-            <div className="text-2xl font-extrabold">{formatar.hora(voo.horarioprevistopartida)}</div>
+            <div className="text-2xl font-bold">{formatar.hora(voo.horarioprevistopartida)}</div>
             <div className="text-sm font-medium">{voo.origem}</div>
             <div className="text-xs text-slate-500">{voo.aeroportoorigem}</div>
           </div>
@@ -127,7 +127,7 @@ function CartaoVoo({ voo, aoEscolher }) {
             <span className="relative bg-white px-2">{formatar.duracao(voo.horarioprevistopartida, voo.horarioprevistochegada)}</span>
           </div>
           <div className="text-right">
-            <div className="text-2xl font-extrabold">{formatar.hora(voo.horarioprevistochegada)}</div>
+            <div className="text-2xl font-bold">{formatar.hora(voo.horarioprevistochegada)}</div>
             <div className="text-sm font-medium">{voo.destino}</div>
             <div className="text-xs text-slate-500">{voo.aeroportodestino}</div>
           </div>
@@ -137,12 +137,12 @@ function CartaoVoo({ voo, aoEscolher }) {
       <div className="md:w-48 md:border-l md:pl-5 border-slate-200 flex md:flex-col items-center md:items-end justify-between gap-2">
         <div className="md:text-right">
           <div className="text-xs text-slate-500">a partir de</div>
-          <div className="text-2xl font-black text-sky-700">{formatar.dinheiro(voo.valorbase)}</div>
+          <div className="text-2xl font-bold text-blue-800">{formatar.dinheiro(voo.valorbase)}</div>
           <div className={`text-xs font-semibold ${poucosLugares ? 'text-red-600' : 'text-slate-500'}`}>
             {voo.assentosdisponiveis} assento(s) livre(s)
           </div>
         </div>
-        <button onClick={aoEscolher} className="px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-sm font-bold">
+        <button onClick={aoEscolher} className="px-4 py-2.5 bg-blue-800 hover:bg-blue-900 text-white text-sm font-bold">
           Escolher assento
         </button>
       </div>

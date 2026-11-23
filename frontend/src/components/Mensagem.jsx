@@ -7,7 +7,7 @@ export default function Mensagem({ tipo = 'erro', texto, aoFechar }) {
       : 'bg-red-50 border-red-300 text-red-800'
 
   return (
-    <div role="alert" className={`flex items-start justify-between gap-3 border rounded-xl px-4 py-3 text-sm ${estilo}`}>
+    <div role="alert" className={`flex items-start justify-between gap-3 border px-4 py-3 text-sm ${estilo}`}>
       <span>{texto}</span>
       {aoFechar && (
         <button onClick={aoFechar} className="font-bold opacity-60 hover:opacity-100" aria-label="Fechar">

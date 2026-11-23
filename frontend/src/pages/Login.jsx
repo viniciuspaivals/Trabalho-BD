@@ -61,7 +61,7 @@ export default function Login() {
           <p className="text-sky-200 text-sm">Sistema de gestão de voos e passagens</p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-md p-6 space-y-4">
+        <div className="bg-white shadow-md p-6 space-y-4">
           {escolha ? (
             <div className="space-y-3">
               <p className="text-sm">Olá, <strong>{escolha.dados.nome}</strong>. Entrar como:</p>
@@ -69,7 +69,7 @@ export default function Login() {
                 <button
                   key={p}
                   onClick={() => entrarComo(escolha.dados, p)}
-                  className="w-full py-2.5 rounded-xl border-2 border-sky-600 text-sky-700 font-semibold hover:bg-sky-50"
+                  className="w-full py-2.5 border-2 border-sky-600 text-sky-700 font-semibold hover:bg-sky-50"
                 >
                   {NOME_PAPEL[p]}
                 </button>
@@ -90,13 +90,13 @@ export default function Login() {
                   onChange={(e) => setIdentificador(e.target.value)}
                   placeholder="Ex.: 11111111111"
                   autoFocus
-                  className="mt-1 w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                  className="mt-1 w-full px-3 py-2.5 border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500"
                 />
               </label>
               <Mensagem texto={erro} />
               <button
                 disabled={carregando}
-                className="w-full py-2.5 rounded-lg bg-sky-600 hover:bg-sky-700 disabled:opacity-60 text-white font-bold"
+                className="w-full py-2.5 bg-sky-600 hover:bg-sky-700 disabled:opacity-60 text-white font-bold"
               >
                 {carregando ? 'Entrando...' : 'Entrar'}
               </button>
@@ -111,14 +111,14 @@ export default function Login() {
         </div>
 
         {!escolha && (
-          <div className="bg-white/10 rounded-2xl p-4 text-white">
+          <div className="bg-white/10 p-4 text-white">
             <p className="text-xs uppercase tracking-wide text-sky-200 font-semibold mb-2">Acesso rápido (dados de teste)</p>
             <div className="grid grid-cols-3 gap-2">
               {ATALHOS.map((a) => (
                 <button
                   key={a.id}
                   onClick={() => fazerLogin(a.id)}
-                  className="rounded-xl bg-white/10 hover:bg-white/20 px-2 py-2 text-left"
+                  className="bg-white/10 hover:bg-white/20 px-2 py-2 text-left"
                 >
                   <div className="text-sm font-semibold">{a.rotulo}</div>
                   <div className="text-xs text-slate-300 truncate">{a.nome}</div>

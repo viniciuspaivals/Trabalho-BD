@@ -30,9 +30,9 @@ export default function Navbar() {
   }
 
   return (
-    <header className="bg-slate-900 text-white">
+    <header className="bg-blue-900 text-white">
       <div className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center gap-x-6 gap-y-2">
-        <div className="flex items-center gap-2 font-extrabold text-lg">
+        <div className="flex items-center gap-2 font-bold text-lg">
           <img src="/aviao.svg" alt="" className="w-7 h-7" />
           Decolaê
         </div>
@@ -44,8 +44,8 @@ export default function Navbar() {
               to={item.para}
               end
               className={({ isActive }) =>
-                `px-3 py-1.5 rounded-lg text-sm font-medium transition ${
-                  isActive ? 'bg-sky-600 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                `px-3 py-1.5 text-sm font-medium transition ${
+                  isActive ? 'bg-blue-700 text-white' : 'text-blue-100 hover:bg-blue-800 hover:text-white'
                 }`
               }
             >
@@ -57,11 +57,11 @@ export default function Navbar() {
         <div className="ml-auto flex items-center gap-3 text-sm">
           <div className="text-right leading-tight">
             <div className="font-semibold">{usuario.nome}</div>
-            <div className="text-xs text-sky-300">{NOME_PAPEL[usuario.papel]}</div>
+            <div className="text-xs text-blue-200">{NOME_PAPEL[usuario.papel]}</div>
           </div>
           <button
             onClick={deslogar}
-            className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium"
+            className="px-3 py-1.5 bg-blue-800 hover:bg-blue-700 text-blue-100 text-sm font-medium"
           >
             Sair
           </button>

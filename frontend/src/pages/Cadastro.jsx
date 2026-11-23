@@ -50,7 +50,7 @@ export default function Cadastro() {
             e.preventDefault()
             cadastrar()
           }}
-          className="bg-white rounded-xl shadow-md p-6 space-y-4"
+          className="bg-white shadow-md p-6 space-y-4"
         >
           <Campo rotulo="CPF" valor={form.cpf} aoMudar={mudarCpf} placeholder="Somente números" obrigatorio />
           <Campo rotulo="Nome completo" valor={form.nome} aoMudar={(v) => alterar('nome', v)} tamanho={100} obrigatorio />
@@ -78,7 +78,7 @@ export default function Cadastro() {
 
           <button
             disabled={carregando || !!sucesso}
-            className="w-full py-2.5 rounded-lg bg-sky-600 hover:bg-sky-700 disabled:opacity-60 text-white font-bold"
+            className="w-full py-2.5 bg-sky-600 hover:bg-sky-700 disabled:opacity-60 text-white font-bold"
           >
             {carregando ? 'Cadastrando...' : 'Cadastrar'}
           </button>
@@ -105,7 +105,7 @@ function Campo({ rotulo, valor, aoMudar, tipo = 'text', placeholder, tamanho, ob
         placeholder={placeholder}
         maxLength={tamanho}
         required={obrigatorio}
-        className="mt-1 w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500"
+        className="mt-1 w-full px-3 py-2.5 border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500"
       />
     </label>
   )
