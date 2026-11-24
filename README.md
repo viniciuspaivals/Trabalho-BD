@@ -1,6 +1,6 @@
 # Decolaê – Sistema de Gestão de Voos e Passagens
 
-Trabalho Prático da disciplina de **Banco de Dados**. O **Decolaê** é um sistema de companhia aérea para gerenciar aeronaves, trajetos, voos, tripulação e a venda de passagens. O sistema usa um banco **PostgreSQL** e um backend em **FastAPI**.
+Trabalho Prático da disciplina de **Banco de Dados**. O **Decolaê** é um sistema de companhia aérea para gerenciar aeronaves, trajetos, voos, tripulação e a venda de passagens. O sistema usa um banco **PostgreSQL**, um backend em **FastAPI** e um front-end em **React**.
 
 ## Integrantes
 
@@ -29,6 +29,7 @@ Trabalho-BD/
 │   ├── 02_dml_povoamento.sql     # Dados de teste
 │   ├── 03_triggers_regras.sql    # Triggers das regras de negócio
 │   └── 04_views_e_funcoes.sql    # Views, constraint triggers e função de compra
+├── frontend/                     # Telas em React + Vite + Tailwind (ver frontend/README.md)
 └── docs/
     ├── tp1.pdf                   # Enunciado do trabalho
     ├── decolae-database/         # Modelos EER, relacional e documentação do BD
@@ -139,6 +140,35 @@ Os erros vindos do banco viram respostas HTTP:
 - Violação de unicidade → **409**.
 - Violação de chave estrangeira, de `CHECK` ou exceção de trigger → **400**, com a mensagem do próprio trigger.
 
+## Front-end
+
+### Requisitos
+
+- Node.js 18+
+- API rodando (seção anterior)
+
+### Execução
+
+Em outro terminal, com a API no ar:
+
+```bash
+cd frontend
+npm install        # só na primeira vez
+npm run dev
+```
+
+Abra **`http://localhost:5173`**. Na tela de login há botões de acesso rápido com os usuários do povoamento:
+
+| Perfil | Usuário | CPF |
+|---|---|---|
+| Cliente | João Silva | `11111111111` |
+| Gerente | Carlos Gerente | `33333333333` |
+| Administrador | Ana Admin | `44444444444` |
+
+Também dá para entrar digitando CPF, e-mail ou nº de credencial. Se a API estiver em outro endereço, copie `frontend/.env.example` para `frontend/.env` e ajuste `VITE_API_URL`.
+
+As telas e a organização do código estão descritas em [`frontend/README.md`](frontend/README.md).
+
 ## Testes de Concorrência
 
 O script [`backend/test_concorrencia.py`](backend/test_concorrencia.py) faz requisições simultâneas para validar:
@@ -172,3 +202,4 @@ O protótipo está em [`docs/decolae-prototipo-interface`](docs/decolae-prototip
 - **psycopg2**: driver do PostgreSQL
 - **Pydantic**: validação dos dados de entrada
 - **Uvicorn**: servidor ASGI
+- **React + Vite + Tailwind**: front-end
