@@ -175,6 +175,8 @@ def listar_tripulantes():
             u.CPF,
             u.Nome,
             u."E-mail" AS email,
+            u.Telefone,
+            u.DataDeNascimento,
             f.NumCredencial,
             t.HorasVoadasDia,
             t.FimUltimoDescanso,
